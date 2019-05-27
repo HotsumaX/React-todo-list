@@ -1,19 +1,17 @@
 import React from 'react';
 
-class TodoItems extends React.Component {
-  createTasks = item => {
+const TodoItems = props => {
+  const createTasks = item => {
     return (
-      <li key={item.key} onClick={() => this.props.deleteItem(item.key)}>
+      <li key={item.key} onClick={() => props.deleteItem(item.key)}>
         {item.text}
       </li>
     );
   };
-  render() {
-    const todoEntries = this.props.entries;
-    const listItems = todoEntries.map(this.createTasks);
+  const todoEntries = props.entries;
+  const listItems = todoEntries.map(createTasks);
 
-    return <ul className="theList">{listItems}</ul>;
-  }
-}
+  return <ul className="theList">{listItems}</ul>;
+};
 
 export default TodoItems;

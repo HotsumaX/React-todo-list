@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 
-class TodoList extends Component {
-  componentDidUpdate() {
-    this.props.inputElement.current.focus();
-  }
-  render() {
+const TodoList = props => {
+  useEffect(() => {
+    props.inputElement.current.focus();
+  }, []);
+
+  {
     return (
       <div className="todoListMain">
         <div className="header">
-          <form onSubmit={this.props.addItem}>
+          <form onSubmit={props.addItem}>
             <input
               placeholder="Task"
-              ref={this.props.inputElement}
-              value={this.props.currentItem.text}
-              onChange={this.props.handleInput}
+              ref={props.inputElement}
+              value={props.currentItem.text}
+              onChange={props.handleInput}
             />
             <button type="submit">Add Task</button>
           </form>
@@ -21,5 +22,5 @@ class TodoList extends Component {
       </div>
     );
   }
-}
+};
 export default TodoList;
