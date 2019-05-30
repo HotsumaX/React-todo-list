@@ -7,12 +7,27 @@ class App extends Component {
     items: [],
     currentItem: { text: '', key: '' }
   };
-  addItem() {}
+  handleInput = e => {
+    const itemText = e.target.value;
+    const currentItem = { text: itemText, key: Date.now() };
+    this.setState({ currentItem });
+    console.log('this is the handleInput method');
+  };
+  addItem = e => {
+    e.preventDefault();
+    console.log('this is the addItem method');
+  };
+  inputElement = React.createRef();
 
   render() {
     return (
       <div className="App">
-        <TodoList addItem={this.addItem} />
+        <TodoList
+          addItem={this.addItem}
+          inputElement={this.inputElement}
+          handleINput={this.handleInput}
+          currentItem={this.state.currentItem}
+        />
       </div>
     );
   }
