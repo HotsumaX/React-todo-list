@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TodoList from './TodoList';
+import TodoItems from './TodoItems';
 
 class App extends Component {
   state = {
@@ -15,9 +16,23 @@ class App extends Component {
   };
   addItem = e => {
     e.preventDefault();
+    const newItem = this.state.currentItem;
+    if (newItem.text !== '') {
+      console.log(newItem);
+      const items = [...this.state.items, newItem];
+      this.setState({ items: items, currentItem: { text: '', key: '' } });
+    }
     console.log('this is the addItem method');
   };
+
   inputElement = React.createRef();
+
+  deleteItem = key => {
+    const filteredItems = this.state.items.filter(item => {
+      return item.key !== key;
+    });
+    this.setState({ items: filteredItems });
+  };
 
   render() {
     return (
@@ -25,9 +40,10 @@ class App extends Component {
         <TodoList
           addItem={this.addItem}
           inputElement={this.inputElement}
-          handleINput={this.handleInput}
+          handleInput={this.handleInput}
           currentItem={this.state.currentItem}
         />
+        <TodoItems entries={this.state.items} deleteItem={this.deleteItem} />
       </div>
     );
   }
