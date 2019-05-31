@@ -1,51 +1,47 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 import TodoList from './TodoList';
 import TodoItems from './TodoItems';
 
-class App extends Component {
-  state = {
-    items: [],
-    currentItem: { text: '', key: '' }
-  };
-  handleInput = e => {
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [currentItem, setCurrentItem] = useState({ text: '', key: '' });
+  const inputElement = useRef(null);
+
+  const handleInput = e => {
     const itemText = e.target.value;
     const currentItem = { text: itemText, key: Date.now() };
-    this.setState({ currentItem });
+    setCurrentItem(currentItem);
     console.log('this is the handleInput method');
   };
-  addItem = e => {
+  const addItem = e => {
     e.preventDefault();
-    const newItem = this.state.currentItem;
+    const newItem = currentItem;
     if (newItem.text !== '') {
       console.log(newItem);
-      const items = [...this.state.items, newItem];
-      this.setState({ items: items, currentItem: { text: '', key: '' } });
+      const newItems = [...items, newItem];
+      setItems(newItems);
+      setCurrentItem({ text: '', key: '' });
     }
     console.log('this is the addItem method');
   };
-
-  inputElement = React.createRef();
-
-  deleteItem = key => {
-    const filteredItems = this.state.items.filter(item => {
+  const deleteItem = key => {
+    const filteredItems = items.filter(item => {
       return item.key !== key;
     });
-    this.setState({ items: filteredItems });
+    setItems(filteredItems);
   };
 
-  render() {
-    return (
-      <div className="App">
-        <TodoList
-          addItem={this.addItem}
-          inputElement={this.inputElement}
-          handleInput={this.handleInput}
-          currentItem={this.state.currentItem}
-        />
-        <TodoItems entries={this.state.items} deleteItem={this.deleteItem} />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <TodoList
+        addItem={addItem}
+        inputElement={inputElement}
+        handleInput={handleInput}
+        currentItem={currentItem}
+      />
+      <TodoItems entries={items} deleteItem={deleteItem} />
+    </div>
+  );
+};
 export default App;
