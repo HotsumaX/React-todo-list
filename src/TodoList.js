@@ -8,14 +8,16 @@ const TodoList = props => {
   return (
     <div className="todoListMain">
       <div className="header">
-        <form onSubmit={props.addItem}>
+        <form>
           <input
             placeholder="Task"
             ref={props.inputElement}
             value={props.currentItem.text}
             onChange={props.handleInput}
           />
-          <button type="submit">Add Task</button>
+          <button type="button" onClick={props.addItem}>
+            Add Task
+          </button>
         </form>
       </div>
     </div>

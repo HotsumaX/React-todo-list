@@ -8,27 +8,18 @@ const App = () => {
   const [currentItem, setCurrentItem] = useState({ text: '', key: '' });
   const inputElement = useRef(null);
 
-  const handleInput = e => {
-    const itemText = e.target.value;
-    const currentItem = { text: itemText, key: Date.now() };
-    setCurrentItem(currentItem);
-    console.log('this is the handleInput method');
-  };
-  const addItem = e => {
-    e.preventDefault();
-    const newItem = currentItem;
-    if (newItem.text !== '') {
-      console.log(newItem);
-      const newItems = [...items, newItem];
-      setItems(newItems);
+  const handleInput = ({ target: { value } }) =>
+    setCurrentItem({ text: value, key: Date.now() });
+
+  const addItem = () => {
+    if (currentItem.text !== '') {
+      setItems([...items, currentItem]);
       setCurrentItem({ text: '', key: '' });
     }
     console.log('this is the addItem method');
   };
   const deleteItem = key => {
-    const filteredItems = items.filter(item => {
-      return item.key !== key;
-    });
+    const filteredItems = items.filter(item => item.key !== key);
     setItems(filteredItems);
   };
 
