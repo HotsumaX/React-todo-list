@@ -1,27 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-const TodoList = props => {
-  useEffect(() => {
-    props.inputElement.current.focus();
-  });
-
+const TodoList = ({ addItem }) => {
   return (
     <div className="todoListMain">
       <div className="header">
-        <form>
-          <input
-            placeholder="Task"
-            ref={props.inputElement}
-            value={props.currentItem.text}
-            onChange={props.handleInput}
-          />
-          <button type="button" onClick={props.addItem}>
-            Add Task
-          </button>
+        <form onSubmit={addItem}>
+          <input placeholder="Task" />
+          <button type="submit">Add Task</button>
         </form>
       </div>
     </div>
   );
 };
-
 export default TodoList;
