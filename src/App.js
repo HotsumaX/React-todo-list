@@ -8,6 +8,7 @@ const App = () => {
   const inputElement = useRef(null);
 
   const handleInput = () => {
+    const itemText = e.target.value;
     console.log('hello input');
   };
   const addItem = e => {
